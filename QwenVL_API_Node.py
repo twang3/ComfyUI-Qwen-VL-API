@@ -16,14 +16,9 @@ import hashlib
 p = os.path.dirname(os.path.realpath(__file__))
 
 def get_qwenvl_api_key():
-    try:
-        config_path = os.path.join(p, 'config.json')
-        with open(config_path, 'r') as f:  
-            config = json.load(f)
-        api_key = config["QWENVL_API_KEY"]
-    except:
-        print("出错啦 Error: API key is required")
-        return ""
+    api_key = os.getenv("QWENVL_API_KEY")
+    if api_key is None:
+        raise Exception("QWENVL_API_KEY is not set")
     return api_key
 
 
